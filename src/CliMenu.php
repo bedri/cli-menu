@@ -241,7 +241,12 @@ class CliMenu
 
         if ($item->canSelect()) {
             $callable = $item->getSelectAction();
-            $callable($this);
+
+            if ($item instanceof MenuItem\SelectableValuedItem) {
+                $callable($this, $item->getValue());
+            } else {
+                $callable($this);
+            }
         }
     }
 
